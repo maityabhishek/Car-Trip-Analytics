@@ -10,8 +10,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TripPointDAO extends CosmosRepository<TripPoint, String> {
-	//Iterable<TripPoint> findByTripid(String trip);
-	List<TripPoint> findAllBySimulationid(int SimulationId);
+	
+	//List<TripPoint> findAllBySimid(int SimulationId);
+	List<TripPoint> findAllByVinOrderByTimestamp(int vin);
 	
 	
 }

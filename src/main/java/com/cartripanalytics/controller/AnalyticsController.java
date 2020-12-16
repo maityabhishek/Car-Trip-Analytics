@@ -6,17 +6,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cartripanalytics.service.TripAnalyticsService;
+
 
 
 @RestController
 public class AnalyticsController {
 	
-	
+	@Autowired
+	private TripAnalyticsService tripservice;
 	
 	@RequestMapping(path="/analyze/{simid}",method=RequestMethod.GET)
-	public String startAnalytics(@PathVariable("simid")String SimulationId)
+	public boolean startAnalytics(@PathVariable("simid")String SimulationId)
 	{
-		return null;
+		return tripservice.analyzedata(SimulationId);
 		
 	}
 

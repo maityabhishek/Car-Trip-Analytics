@@ -106,6 +106,12 @@ public class Trip {
 		this.tripdate = tripdate;
 		this.splits = splits;
 	}
+	@Override
+	public String toString() {
+		return "Trip [tripid=" + tripid + ", carno=" + carno + ", distance=" + distance + ", fuel=" + fuel
+				+ ", avgspeed=" + avgspeed + ", triptime=" + triptime + ", startpoint=" + startpoint + ", endpoint="
+				+ endpoint + ", tripdate=" + tripdate + ", \nsplits=" + splits + "\n, tripsplitkms=" + tripsplitkms + "]";
+	}
 	
 	
 

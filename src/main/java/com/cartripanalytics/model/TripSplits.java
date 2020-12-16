@@ -50,5 +50,10 @@ public class TripSplits {
 	public TripSplits() {
 		super();
 	}
+	@Override
+	public String toString() {
+		return "TripSplits [fromKms=" + fromKms + ", toKms=" + toKms + ", time=" + time + ", avgSpeed=" + avgSpeed
+				+ ", fuelconsumed=" + fuelconsumed + "]";
+	}
 	
 }
