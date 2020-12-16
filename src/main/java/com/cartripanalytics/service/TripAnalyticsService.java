@@ -66,7 +66,7 @@ public class TripAnalyticsService {
 			splitDist=(int) (tp.getOdometer()-odometerinitial);
 			splitfuel=initialfuel-tp.getFuel();
 			splitTime=tp.getTs()-initialTime;
-			
+			//test
 		}
 		avgspeed = (splits.stream().mapToInt(t -> t.getAvgSpeed()).sum())/4.0;
 		Trip trip=new Trip(1,"OD02F7497",totalKmstraveled,totalFuelConsumed,avgspeed,triptime,"A","B",new Date(list.get(0).getTs()),(int)Math.round(tripsplitkms),splits);
