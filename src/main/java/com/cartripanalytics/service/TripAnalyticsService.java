@@ -5,8 +5,10 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.cartripanalytics.client.CarClient;
 import com.cartripanalytics.dao.TripPointDAO;
 import com.cartripanalytics.model.Trip;
 import com.cartripanalytics.model.TripPoint;
@@ -17,9 +19,13 @@ public class TripAnalyticsService {
 	
 	@Autowired
 	private TripPointDAO tripdao;
+	
+	@Autowired
+	private CarClient cc;
+	
 	public boolean analyzedata(String simulationid) 
 	{
-		List<TripPoint> list =tripdao.findAllByVinOrderByTimestamp(Integer.parseInt(simulationid));
+		List<TripPoint> list =tripdao.findAllBySimulationidOrderByTimestamp(Integer.parseInt(simulationid));
 		int dataPointNos=list.size();
 		double totalKmstraveled=(list.get(dataPointNos-1).getOdometer())-(list.get(0).getOdometer());
 		double totalFuelConsumed=(list.get(0).getFuel())-(list.get(dataPointNos-1).getFuel());
@@ -62,8 +68,15 @@ public class TripAnalyticsService {
 		}
 		double avgspeed = (splits.stream().mapToInt(t -> t.getAvgSpeed()).sum())/4.0;
 		Trip trip=new Trip(1,"OD02F7497",totalKmstraveled,totalFuelConsumed,avgspeed,triptime,"A","B",new Date(list.get(0).getTs()),(int)Math.round(tripsplitkms),splits);
-		System.out.println("\n\n\n\n\n\n"+trip+"\n\n\n\n\n\n");
-
+		ResponseEntity<?> re = cc.viewLastTrip("OD02F7497", "8d5355e4a23a8b0baea5b58f79ba3ce1bd285c5c62e8c39645bd4fce30a935a0");
+		Trip dbTrip=(Trip)re.getBody();
+		dbTrip.setSplits(splits);
+		dbTrip.setAvgspeed(avgspeed);
+		dbTrip.setDistance(totalKmstraveled);
+		dbTrip.setFuel(totalFuelConsumed);
+		dbTrip.setTriptime(triptime);
+		dbTrip.setTripsplitkms((int)tripsplitkms);
+		cc.addTrip("OD02F7497", "8d5355e4a23a8b0baea5b58f79ba3ce1bd285c5c62e8c39645bd4fce30a935a0", dbTrip);
 		return true;
 	}
 	

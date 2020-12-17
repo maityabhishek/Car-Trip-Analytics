@@ -11,8 +11,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TripPointDAO extends CosmosRepository<TripPoint, String> {
 	
-	//List<TripPoint> findAllBySimid(int SimulationId);
-	List<TripPoint> findAllByVinOrderByTimestamp(int vin);
+	List<TripPoint> findAllBySimulationidOrderByTimestamp(int SimulationId);
+	//List<TripPoint> findAllByVin(int vin);
 	
 	
 }
