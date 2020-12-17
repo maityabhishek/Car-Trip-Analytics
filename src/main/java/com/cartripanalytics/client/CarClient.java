@@ -16,7 +16,7 @@ import com.cartripanalytics.model.Trip;
 public interface CarClient {
 	
 	@RequestMapping(method=RequestMethod.GET,path="/viewlasttrip/{carno}")
-	public ResponseEntity<?> viewLastTrip(@PathVariable("carno")String carno, @RequestHeader(name="Authorization")String token);
+	public ResponseEntity<Trip> viewLastTrip(@PathVariable("carno")String carno, @RequestHeader(name="Authorization")String token);
 
 	@RequestMapping(method=RequestMethod.POST,path="/addtrip/{carno}")
 	public ResponseEntity<?> addTrip(@PathVariable("carno")String carno,@RequestHeader(name="Authorization")String token,@RequestBody Trip carTrip);

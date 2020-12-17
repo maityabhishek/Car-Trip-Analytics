@@ -25,7 +25,7 @@ public class TripAnalyticsService {
 	
 	public boolean analyzedata(String simulationid) 
 	{
-		List<TripPoint> list =tripdao.findAllBySimulationidOrderByTimestamp(Integer.parseInt(simulationid));
+		List<TripPoint> list =tripdao.findAllBySimulationidOrderByTimestamp(simulationid);
 		int dataPointNos=list.size();
 		double totalKmstraveled=(list.get(dataPointNos-1).getOdometer())-(list.get(0).getOdometer());
 		double totalFuelConsumed=(list.get(0).getFuel())-(list.get(dataPointNos-1).getFuel());
@@ -68,8 +68,9 @@ public class TripAnalyticsService {
 		}
 		double avgspeed = (splits.stream().mapToInt(t -> t.getAvgSpeed()).sum())/4.0;
 		Trip trip=new Trip(1,"OD02F7497",totalKmstraveled,totalFuelConsumed,avgspeed,triptime,"A","B",new Date(list.get(0).getTs()),(int)Math.round(tripsplitkms),splits);
-		ResponseEntity<?> re = cc.viewLastTrip("OD02F7497", "8d5355e4a23a8b0baea5b58f79ba3ce1bd285c5c62e8c39645bd4fce30a935a0");
-		Trip dbTrip=(Trip)re.getBody();
+		ResponseEntity<Trip> re = cc.viewLastTrip("OD02F7497", "8d5355e4a23a8b0baea5b58f79ba3ce1bd285c5c62e8c39645bd4fce30a935a0");
+		Trip dbTrip=(Trip)(re.getBody());
+	
 		dbTrip.setSplits(splits);
 		dbTrip.setAvgspeed(avgspeed);
 		dbTrip.setDistance(totalKmstraveled);

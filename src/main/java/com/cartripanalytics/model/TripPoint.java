@@ -12,7 +12,7 @@ public class TripPoint {
     private String timestamp;
 	private int vin;
 	private String id;
-	private int simulationid;
+	private String simulationid;
 	private int speed;
 	private long odometer;
 	private double fuel;
@@ -44,10 +44,10 @@ public class TripPoint {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public int getSimulationid() {
+	public String getSimulationid() {
 		return simulationid;
 	}
-	public void setSimulationid(int simulationid) {
+	public void setSimulationid(String simulationid) {
 		this.simulationid = simulationid;
 	}
 	public int getSpeed() {
@@ -80,7 +80,7 @@ public class TripPoint {
 	public void setSimid(String simid) {
 		this.simid = simid;
 	}
-	public TripPoint(String timestamp, int vin, String id, int simulationid, int speed, long odometer, double fuel,
+	public TripPoint(String timestamp, int vin, String id, String simulationid, int speed, long odometer, double fuel,
 			long ts, String simid) {
 		super();
 		this.timestamp = timestamp;

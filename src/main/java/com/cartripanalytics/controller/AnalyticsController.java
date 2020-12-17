@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cartripanalytics.dao.TripPointDAO;
 import com.cartripanalytics.service.TripAnalyticsService;
 
 
@@ -16,14 +17,12 @@ public class AnalyticsController {
 	
 	@Autowired
 	private TripAnalyticsService tripservice;
-	
-	
-	
-	
-	@RequestMapping(path="/analyze/{simid}",method=RequestMethod.GET)
-	public boolean startAnalytics(@PathVariable("simid")String SimulationId)
+	@Autowired
+	private TripPointDAO tp;
+	@RequestMapping(path="/analyze/{simulationId}",method=RequestMethod.GET)
+	public boolean startAnalytics(@PathVariable("simulationId") String simulationId)
 	{
-		return tripservice.analyzedata(SimulationId);	
+		return tripservice.analyzedata(simulationId);	
 	}
 
 }
