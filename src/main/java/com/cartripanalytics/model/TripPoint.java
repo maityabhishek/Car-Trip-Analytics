@@ -4,7 +4,7 @@ package com.cartripanalytics.model;
 import com.azure.spring.data.cosmos.core.mapping.Container;
 import com.azure.spring.data.cosmos.core.mapping.PartitionKey;
 
-@Container(containerName = "cont1", ru = "400")
+@Container(containerName = "rawtripcontainer", ru = "400")
 
 public class TripPoint {
 	
