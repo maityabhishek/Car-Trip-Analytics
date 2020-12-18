@@ -29,6 +29,7 @@ public class TripAnalyticsService {
 		int dataPointNos=list.size();
 		double totalKmstraveled=(list.get(dataPointNos-1).getOdometer())-(list.get(0).getOdometer());
 		double totalFuelConsumed=(list.get(0).getFuel())-(list.get(dataPointNos-1).getFuel());
+		totalFuelConsumed= ((int)(totalFuelConsumed*100))/100.0;
 		double triptime=(list.get(dataPointNos-1).getTs())-(list.get(0).getTs());
 		double tripsplitkms=(totalKmstraveled/4.0);
 		
