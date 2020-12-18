@@ -47,7 +47,7 @@ public class AppDBConfiguration extends AbstractCosmosConfiguration {
 
     @Override
     protected String getDatabaseName() {
-        return "db";
+        return "rawtripdb";
     }
 
     private static class ResponseDiagnosticsProcessorImplementation implements ResponseDiagnosticsProcessor {
