@@ -12,7 +12,7 @@ import com.cartripanalytics.model.Trip;
 
 
 
-@FeignClient(url="localhost:8888",name="user-car-service")
+@FeignClient(url="https://user-car-service.azurewebsites.net",name="user-car-service")
 public interface CarClient {
 	
 	@RequestMapping(method=RequestMethod.GET,path="/viewlasttrip/{carno}")
