@@ -21,4 +21,8 @@ public interface CarClient {
 	@RequestMapping(method=RequestMethod.POST,path="/addtrip/{carno}")
 	public ResponseEntity<?> addTrip(@PathVariable("carno")String carno,@RequestHeader(name="Authorization")String token,@RequestBody Trip carTrip);
 	
+	@RequestMapping(method=RequestMethod.GET,path="/updateinfos/{carno}/{kms}/{fuel}")
+	public ResponseEntity<?> updateKmAndFuel(@PathVariable("carno")String carno, @RequestHeader(name="Authorization")String token,
+											@PathVariable("kms")int kms,
+											@PathVariable("fuel")double fuel);
 }

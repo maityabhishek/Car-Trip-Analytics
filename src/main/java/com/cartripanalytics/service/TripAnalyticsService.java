@@ -79,6 +79,7 @@ public class TripAnalyticsService {
 		dbTrip.setTriptime(triptime);
 		dbTrip.setTripsplitkms((int)tripsplitkms);
 		cc.addTrip("OD02F7497", "8d5355e4a23a8b0baea5b58f79ba3ce1bd285c5c62e8c39645bd4fce30a935a0", dbTrip);
+		cc.updateKmAndFuel("OD02F7497", "@uthtoken", (int)totalKmstraveled, totalFuelConsumed);
 		return true;
 	}
 	
