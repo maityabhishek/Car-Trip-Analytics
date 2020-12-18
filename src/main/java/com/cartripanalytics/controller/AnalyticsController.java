@@ -13,6 +13,7 @@ import com.cartripanalytics.service.TripAnalyticsService;
 
 
 @RestController
+@CrossOrigin(origins = "*")
 public class AnalyticsController {
 	
 	@Autowired
