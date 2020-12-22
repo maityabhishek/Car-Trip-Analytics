@@ -42,24 +42,25 @@ public class TripAnalyticsService {
 		int datacount=1;
 		double initialfuel=list.get(0).getFuel();
 		double splitfuel=0.0;
-		
+		//System.out.println(list.size()+" kms traveled"+totalKmstraveled+" first"+list.get(0)+"\n last"+list.get(list.size()-1));
 		List<TripSplits> splits=new ArrayList<TripSplits>();
 		TripPoint tp=null;
 		for(int counter=1;counter<=list.size();counter++)
 		{
 			tp=list.get(counter-1);
-			System.out.println(tp);
+			
 			if(tp.getOdometer()>=nextsplit)
 			{
 				splitcount+=1;
 				splits.add(new TripSplits(sfromKm,(int) nextsplit,splitTime,speed/datacount,splitfuel));
 				sfromKm=(int) (nextsplit+1);
+				initialTime=tp.getTs();
 				nextsplit=tripsplitkms*splitcount;
 				initialfuel=tp.getFuel();
 				datacount=0;
 				speed=0;
-				System.out.println(splitcount+"\t\t"+nextsplit);
-				System.out.println("\n\t\twe Split next on "+nextsplit+"\t\tcur:"+tp.getOdometer()+ "\n\n");
+				//System.out.println(splitcount+"\t\t"+nextsplit);
+				//System.out.println("\n\t\twe Split next on "+nextsplit+"\t\tcur:"+tp.getOdometer()+ "\n\n");
 				
 			}
 			splitTime=tp.getTs()-initialTime;
@@ -67,17 +68,18 @@ public class TripAnalyticsService {
 			splitfuel=initialfuel-tp.getFuel();
 			datacount++;
 		}
-		double avgspeed = (splits.stream().mapToInt(t -> t.getAvgSpeed()).sum())/4.0;
-		Trip trip=new Trip(1,"OD02F7497",totalKmstraveled,totalFuelConsumed,avgspeed,triptime,"A","B",new Date(list.get(0).getTs()),(int)Math.round(tripsplitkms),splits);
+		double avgspeed = (splits.stream().mapToInt(t -> t.getAvgSpeed()).sum())/4;
+		
 		ResponseEntity<Trip> re = cc.viewLastTrip("OD02F7497", "8d5355e4a23a8b0baea5b58f79ba3ce1bd285c5c62e8c39645bd4fce30a935a0");
 		Trip dbTrip=(Trip)(re.getBody());
-	
+		System.out.println(dbTrip);
 		dbTrip.setSplits(splits);
 		dbTrip.setAvgspeed(avgspeed);
 		dbTrip.setDistance(totalKmstraveled);
 		dbTrip.setFuel(totalFuelConsumed);
 		dbTrip.setTriptime(triptime);
 		dbTrip.setTripsplitkms((int)tripsplitkms);
+		System.out.println("\n\n\nUpdated "+dbTrip);
 		cc.addTrip("OD02F7497", "8d5355e4a23a8b0baea5b58f79ba3ce1bd285c5c62e8c39645bd4fce30a935a0", dbTrip);
 		cc.updateKmAndFuel("OD02F7497", "@uthtoken", (int)totalKmstraveled, totalFuelConsumed);
 		return true;
