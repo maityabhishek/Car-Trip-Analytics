@@ -69,7 +69,7 @@ public class TripAnalyticsService {
 			datacount++;
 		}
 		double avgspeed = (splits.stream().mapToInt(t -> t.getAvgSpeed()).sum())/4;
-		
+		triptime=splits.stream().mapToInt(l -> (int)l.getTime()).sum();
 		ResponseEntity<Trip> re = cc.viewLastTrip("OD02F7497", "8d5355e4a23a8b0baea5b58f79ba3ce1bd285c5c62e8c39645bd4fce30a935a0");
 		Trip dbTrip=(Trip)(re.getBody());
 		System.out.println(dbTrip);
