@@ -32,7 +32,7 @@ public class TripAnalyticsService {
 		totalFuelConsumed= ((int)(totalFuelConsumed*100))/100.0;
 		double triptime=(list.get(dataPointNos-1).getTs())-(list.get(0).getTs());
 		double tripsplitkms=(totalKmstraveled/4.0);
-		
+		int maxspeed=list.get(0).getSpeed();
 		double nextsplit=tripsplitkms;
 		int splitcount=1;
 		int sfromKm=0;
@@ -48,7 +48,8 @@ public class TripAnalyticsService {
 		for(int counter=1;counter<=list.size();counter++)
 		{
 			tp=list.get(counter-1);
-			
+			if(tp.getSpeed()>maxspeed)
+				maxspeed=tp.getSpeed();
 			if(tp.getOdometer()>=nextsplit)
 			{
 				splitcount+=1;
@@ -79,6 +80,8 @@ public class TripAnalyticsService {
 		dbTrip.setFuel(totalFuelConsumed);
 		dbTrip.setTriptime(triptime);
 		dbTrip.setTripsplitkms((int)tripsplitkms);
+		dbTrip.setMaxspeed(maxspeed);
+		dbTrip.setFuelefficiency(totalKmstraveled/totalFuelConsumed);
 		System.out.println("\n\n\nUpdated "+dbTrip);
 		cc.addTrip("OD02F7497", "8d5355e4a23a8b0baea5b58f79ba3ce1bd285c5c62e8c39645bd4fce30a935a0", dbTrip);
 		cc.updateKmAndFuel("OD02F7497", "@uthtoken", (int)totalKmstraveled, totalFuelConsumed);

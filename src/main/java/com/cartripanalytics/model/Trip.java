@@ -20,7 +20,39 @@ public class Trip {
 	private Date tripdate;
 	private List<TripSplits> splits;
 	private int tripsplitkms;
+	private int maxspeed;
+	private double fuelefficiency;
 	
+	public Trip(int tripid, String carno, double distance, double fuel, double avgspeed, double triptime,
+			String startpoint, String endpoint, Date tripdate, List<TripSplits> splits, int tripsplitkms, int maxspeed,
+			double fuelefficiency) {
+		super();
+		this.tripid = tripid;
+		this.carno = carno;
+		this.distance = distance;
+		this.fuel = fuel;
+		this.avgspeed = avgspeed;
+		this.triptime = triptime;
+		this.startpoint = startpoint;
+		this.endpoint = endpoint;
+		this.tripdate = tripdate;
+		this.splits = splits;
+		this.tripsplitkms = tripsplitkms;
+		this.maxspeed = maxspeed;
+		this.fuelefficiency = fuelefficiency;
+	}
+	public double getFuelefficiency() {
+		return fuelefficiency;
+	}
+	public void setFuelefficiency(double fuelefficiency) {
+		this.fuelefficiency = ((int)fuelefficiency*100)/100.0;
+	}
+	public int getMaxspeed() {
+		return maxspeed;
+	}
+	public void setMaxspeed(int maxspeed) {
+		this.maxspeed = maxspeed;
+	}
 	public int getTripsplitkms() {
 		return tripsplitkms;
 	}
@@ -91,27 +123,14 @@ public class Trip {
 	public void setSplits(List<TripSplits> splits) {
 		this.splits = splits;
 	}
-	public Trip(int tripid, String carno, double distance, double fuel, double avgspeed, double triptime,
-			String startpoint, String endpoint, Date tripdate, int tripsplitkms,List<TripSplits> splits) {
-		super();
-		this.tripsplitkms=tripsplitkms;
-		this.tripid = tripid;
-		this.carno = carno;
-		this.distance = distance;
-		this.fuel = fuel;
-		this.avgspeed = avgspeed;
-		this.triptime = triptime;
-		this.startpoint = startpoint;
-		this.endpoint = endpoint;
-		this.tripdate = tripdate;
-		this.splits = splits;
-	}
 	@Override
 	public String toString() {
 		return "Trip [tripid=" + tripid + ", carno=" + carno + ", distance=" + distance + ", fuel=" + fuel
 				+ ", avgspeed=" + avgspeed + ", triptime=" + triptime + ", startpoint=" + startpoint + ", endpoint="
-				+ endpoint + ", tripdate=" + tripdate + ", \nsplits=" + splits + "\n, tripsplitkms=" + tripsplitkms + "]";
+				+ endpoint + ", tripdate=" + tripdate + ", splits=" + splits + ", tripsplitkms=" + tripsplitkms
+				+ ", maxspeed=" + maxspeed + ", fuelefficiency=" + fuelefficiency + "]";
 	}
+	
 	
 	
 
