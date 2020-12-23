@@ -31,7 +31,7 @@ public class TripAnalyticsService {
 		double totalFuelConsumed=(list.get(0).getFuel())-(list.get(dataPointNos-1).getFuel());
 		totalFuelConsumed= ((int)(totalFuelConsumed*100))/100.0;
 		double triptime=(list.get(dataPointNos-1).getTs())-(list.get(0).getTs());
-		double tripsplitkms=(list.get(list.size()-1).getOdometer()/4.0);
+		double tripsplitkms=(totalKmstraveled/4.0);
 		int maxspeed=list.get(0).getSpeed();
 		double nextsplit=tripsplitkms;
 		int splitcount=1;
@@ -42,13 +42,16 @@ public class TripAnalyticsService {
 		int datacount=1;
 		double initialfuel=list.get(0).getFuel();
 		double splitfuel=0.0;
+		long odometerReading = list.get(0).getOdometer();
 		//System.out.println(list.size()+" kms traveled"+totalKmstraveled+" first"+list.get(0)+"\n last"+list.get(list.size()-1));
 		List<TripSplits> splits=new ArrayList<TripSplits>();
 		TripPoint tp=null;
 		for(int counter=1;counter<=list.size();counter++)
 		{
 			tp=list.get(counter-1);
-			System.out.println(tp);
+			//System.out.println("\t Initial"+tp.getOdometer());
+			tp.setOdometer(tp.getOdometer()-odometerReading);
+			//System.out.println("\tpost"+tp.getOdometer());
 			if(tp.getSpeed()>maxspeed)
 				maxspeed=tp.getSpeed();
 			if(tp.getOdometer()>=nextsplit)
